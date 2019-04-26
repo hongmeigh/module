@@ -1,0 +1,14 @@
+{
+  "presets": [
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": [
+          "Android > 4",
+          "iOS > 8"
+        ]
+      }
+    }],
+    "react"
+  ]
+}

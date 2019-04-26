@@ -1,0 +1,60 @@
+@border-color: #e1e1e1;
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form {
+    font-size: 16px;
+    margin: 0 auto;
+    width: 600px;
+}
+
+.line {
+    margin-bottom: 15px;
+
+    label {
+        display: inline-block;
+        margin-right: 5px;
+        text-align: right;
+        width: 150px;
+    }
+
+    input,
+    textarea,
+    select {
+        // -webkit-appearance: none;
+        border: 1px solid @border-color;
+        padding: 5px;
+        border-radius: 3px;
+    }
+
+    select {
+        height: 30px;
+        background-color: #fff;
+    }
+
+    input {
+        &.input-sm {
+            width: 80px;
+        }
+    }
+
+    input,
+    select {
+        width: 200px;
+    }
+
+    .inline {
+        display: inline-block;
+
+        label {
+            width: auto;
+
+            &.offset {
+                width: 150px;
+            }
+        }
+    }
+}

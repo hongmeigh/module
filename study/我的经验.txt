@@ -1,0 +1,4 @@
+1、react中判断某个组件是否变化更新
+shouldComponentUpdate(nextProp, nextState) {
+        return nextState != this.state || nextProp != this.props;
+    }

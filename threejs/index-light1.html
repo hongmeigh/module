@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Three框架</title>
+    <script src="js/three.js"></script>
+    <style type="text/css">
+        div#canvas-frame {
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            height: 600px;
+            background-color: #EEEEEE;
+        }
+
+    </style>
+    <script>
+        var renderer;
+        function initThree() {
+            width = document.getElementById('canvas-frame').clientWidth;
+            height = document.getElementById('canvas-frame').clientHeight;
+            renderer = new THREE.WebGLRenderer({
+                antialias : true
+            });
+            renderer.setSize(width, height);
+            document.getElementById('canvas-frame').appendChild(renderer.domElement);
+            renderer.setClearColor(0xFFFFFF, 1.0);
+        }
+
+        var camera;
+        function initCamera() {
+            camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
+            camera.position.x = 600;
+            camera.position.y = 500;
+            camera.position.z = 200;
+
+            camera.up.x = 0;
+            camera.up.y = -1;
+            camera.up.z = 0;
+            camera.lookAt(0, 0, 0);
+        }
+
+        var scene;
+        function initScene() {
+            scene = new THREE.Scene();
+        }
+
+        var light;
+        function initLight() {
+//                light = new THREE.AmbientLight(0xFF0000);
+//                light.position.set(100, 100, 200);
+//                scene.add(light);
+            // 方向光
+//            light = new THREE.DirectionalLight(0xFF0000);
+//            light.position.set(9, 0, 1);
+//            scene.add(light);
+            //聚光灯
+            light = new THREE.SpotLight( 0x00FF7F, 1.0, 0, 0.3 * Math.PI );
+            light.position.set(600, 0, 200);
+            scene.add(light);
+        }
+
+        // A start
+        var cube;
+        function initObject() {
+            var geometry = new THREE.CubeGeometry( 200, 100, 50,4,4);
+            var material = new THREE.MeshLambertMaterial( { color:0xFFFFFF} );
+            mesh = new THREE.Mesh( geometry,material);
+            mesh.position.set(0,0,0);
+            scene.add(mesh);
+
+            var geometry2 = new THREE.CubeGeometry( 200, 100, 50,4,4);
+            var material2 = new THREE.MeshLambertMaterial( { color:0xFFFFFF} );
+            mesh2 = new THREE.Mesh( geometry2,material2);
+            mesh2.position.set(-300,0,0);
+            scene.add(mesh2);
+
+            var geometry3 = new THREE.CubeGeometry( 200, 100, 50,4,4);
+            var material3 = new THREE.MeshLambertMaterial( { color:0xFFFFFF} );
+            mesh3 = new THREE.Mesh( geometry3,material3);
+            mesh3.position.set(0,-150,0);
+            scene.add(mesh3);
+
+            mesh4 = new THREE.Mesh( geometry3,material3);
+            mesh4.position.set(0,150,0);
+            scene.add(mesh4);
+
+            mesh5 = new THREE.Mesh( geometry3,material3);
+            mesh5.position.set(300,0,0);
+            scene.add(mesh5);
+
+            mesh6 = new THREE.Mesh( geometry3,material3);
+            mesh6.position.set(0,0,-100);
+            scene.add(mesh6);
+
+        }
+        // A end
+        var count = 0;
+        var angle = 0;
+        function render()
+        {
+            //renderer.clear();
+            count = count + 0.001;
+            angle = count * 2 * Math.PI;
+            camera.position.x = 600 * Math.cos(angle);
+            //console.log(600 * Math.cos(angle), 600 * Math.sin(angle))
+            camera.position.y = 0;
+            camera.position.z = 600 * Math.sin(angle);
+            camera.up.x = 0;
+            camera.up.y = 1;
+            camera.up.z = 0;
+            camera.lookAt(0, 0, 0);
+            renderer.render(scene, camera);
+            requestAnimationFrame(render);
+        }
+        function render1()
+        {
+            renderer.clear();
+            mesh.rotation.y += 0.01;
+            mesh2.rotation.y += 0.01;
+            mesh3.rotation.y += 0.01;
+            mesh4.rotation.y += 0.01;
+            mesh5.rotation.y += 0.01;
+            mesh6.rotation.y += 0.01;
+            renderer.render(scene, camera);
+            requestAnimationFrame(render1);
+        }
+        function threeStart() {
+            initThree();
+            initCamera();
+            initScene();
+            initLight();
+            initObject();
+            //renderer.render(scene, camera);
+            render1();
+        }
+
+    </script>
+</head>
+
+<body onload="threeStart();">
+    <div id="canvas-frame"></div>
+</body>
+</html>
